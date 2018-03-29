@@ -11,7 +11,8 @@
 //--- input parameters
 #define EXPERT_MAGIC 123456
 
-
+input int stoploss = 100;
+input int takeprofit = 100;
 
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
@@ -36,8 +37,24 @@ void OnDeinit(const int reason)
 //+------------------------------------------------------------------+
 void OnTick()
   {
+  
+int handleMaS = iMA(Symbol(),0,10,0,MODE_SMA,PRICE_OPEN); 
+int handleMaL = iMA(Symbol(),0,25,0,MODE_SMA,PRICE_OPEN); 
+double MaS[];
+double MaL[];
 
-enviarOrden("buy",50,50);
+CopyBuffer(handleMaS,0,0,5,MaS);
+CopyBuffer(handleMaL,0,0,5,MaL);
+Print(MaS[0]);  // Hacer el calculo para entrar a la operacion
+//-------------------------------------------------------------------+
+if(MaS[1]>MaL[1] && MaS[0]<MaL[0] && PositionsTotal() == 0){
+enviarOrden("buy",stoploss,takeprofit);
+
+Print(PositionsTotal());
+}
+
+
+
 
    
   }
