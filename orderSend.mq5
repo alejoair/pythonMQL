@@ -57,9 +57,8 @@ request.deviation=5;                                     // allowed deviation fr
 request.magic    =EXPERT_MAGIC; 
 request.type_filling = SYMBOL_FILLING_FOK;
 
-
 OrderSend(request,result);
-return(result);
+return (result);
 
 }
 
